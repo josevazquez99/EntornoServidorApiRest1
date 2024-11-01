@@ -7,6 +7,7 @@ import com.vedruna.sampleproject.persistance.models.Product;
 public interface ProductServiceI {
     List<Product> showAllProducts();
     Product showProductByname(String product_name);
+    Product findProductById(Integer id);
     void saveProduct(Product product);
     void updateProduct(Integer id,Product product);
     void deleteProduct(Integer id);

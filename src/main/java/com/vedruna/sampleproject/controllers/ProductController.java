@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vedruna.sampleproject.persistance.models.Product;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/v1/product")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ProductController {
 
     @Autowired
@@ -37,13 +38,17 @@ public class ProductController {
         return productServiceI.showProductByname(product_name);
     }
 
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Integer id) {
+        return productServiceI.findProductById(id); 
+    }
+
     @PostMapping("/insert")
     public String postUser(@RequestBody Product product) {
         productServiceI.saveProduct(product);
 
         return "Product saved";
     }
-    
     @PutMapping("edit/{id}")
     public String editProduct(@PathVariable Integer id, @RequestBody Product product) {
         productServiceI.updateProduct(id, product);
