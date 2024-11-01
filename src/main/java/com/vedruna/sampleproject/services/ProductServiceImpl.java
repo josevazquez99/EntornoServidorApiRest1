@@ -25,7 +25,10 @@ public class ProductServiceImpl implements ProductServiceI {
         return productRepo.findByname(product_name);
 
     }
-
+    public Product findProductById(Integer id) {
+        return productRepo.findById(id).orElse(null); 
+    }
+    
     @Override
     public void saveProduct(Product product) {
             productRepo.save(product);
